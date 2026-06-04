@@ -565,6 +565,14 @@ const NewInvModal = ({clients,invoices,setInvoices,biz,onClose,userId}) => {
       status,
       notes
     };
+    const {data,error} = await supabase
+  .from("invoices")
+  .insert([{
+    ...invData,
+    items: JSON.stringify(validItems)
+  }])
+  .select()
+  .single();
     const {data,error} = await supabase.from("invoices").insert([invData]).select().single();
     if(error){setToast({msg:"خطأ في الحفظ",type:"error"});setSaving(false);return;}
     setInvoices(p=>[data,...p]);
