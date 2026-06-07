@@ -343,11 +343,12 @@ const Sidebar = ({page,setPage,biz,onLogout}) => (
             background:page===m.id?"rgba(13,110,110,.3)":"transparent",
             color:page===m.id?"#fff":"rgba(255,255,255,.5)",
             fontSize:13,fontWeight:page===m.id?700:400,textAlign:"right",transition:"all .15s"}}>
-          <span style={{fontSize:15}}>{m.icon}</span>{m.label}
-        </button>
-      ))}
-    </nav>
-    <div style={{padding:"14px 10px",borderTop:"1px solid rgba(255,255,255,.08)"}}>
+          <span style={{fontSize:15}}>{m.icon}</span>
+<span style={{display: window.innerWidth >= 768 ? "inline" : "none"}}>{m.label}</span>
+</button>
+))}
+</nav>
+    <div style={{padding:"14px 10px",borderTop:"1px solid rgba(255,255,255,.08)"}}> 
       <button onClick={onLogout} style={{display:"flex",alignItems:"center",gap:9,width:"100%",
         padding:"9px 12px",borderRadius:9,border:"none",cursor:"pointer",
         background:"transparent",color:"rgba(255,255,255,.35)",fontSize:13,textAlign:"right"}}>
@@ -573,9 +574,9 @@ const NewInvModal = ({clients,invoices,setInvoices,biz,onClose,userId}) => {
   }])
   .select()
   .single();
-    const {data,error} = await supabase.from("invoices").insert([invData]).select().single();
-    if(error){setToast({msg:"خطأ في الحفظ",type:"error"});setSaving(false);return;}
-    setInvoices(p=>[data,...p]);
+    const {data:invResult,error:invError} = await supabase.from("invoices").insert([invData]).select().single();
+    if(invError){setToast({msg:"خطأ في الحفظ",type:"error"});setSaving(false);return;}
+    setInvoices(prev=>[invResult,...prev]);
     setSaving(false);
     onClose();
   };
