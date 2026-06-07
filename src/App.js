@@ -321,7 +321,7 @@ const MENU = [
 ];
 
 const Sidebar = ({page,setPage,biz,onLogout}) => (
-  <div style={{width:230,background:C.ink,minHeight:"100vh",display:"flex",flexDirection:"column",
+  <div style={{width:window.innerWidth<768?60:210,background:T.ink2,background:C.ink,minHeight:"100vh",display:"flex",flexDirection:"column",
     padding:"22px 0",flexShrink:0,position:"sticky",top:0,height:"100vh"}}>
     <div style={{padding:"0 20px 24px",borderBottom:"1px solid rgba(255,255,255,.08)"}}>
       <div style={{fontSize:21,fontWeight:900,color:"#fff"}}>فاتورا<span style={{color:C.gold}}>تي</span></div>
