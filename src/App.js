@@ -703,7 +703,7 @@ const ClientsPage = ({clients,setClients,invoices,userId}) => {
       <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(260px,1fr))",gap:14}}>
         {filtered.map(c=>{
           const cInvs=invoices.filter(i=>i.client_id===c.id);
-          const total=cInvs.reduce((s,i)=>s+calc(i.items,i.tva_rate).total,0);
+          const total = (Array.isArray(cInvs) ? cInvs : []).reduce((s,i) => s+calc(Array.isArray(i.items) ? i.items : [], i.tva_rate).total, 0);
           return <Card key={c.id}>
             <div style={{display:"flex",justifyContent:"space-between",alignItems:"flex-start",marginBottom:14}}>
               <div style={{width:42,height:42,background:C.tealXL,borderRadius:11,display:"flex",
